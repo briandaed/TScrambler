@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TScrambler</title>
+<meta name="description" content="Watch and stream scrambled Twitch streams with TScrambler.">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --bg: #0e0e10; --panel: #18181b; --line: #2f2f35; --text: #efeff1; --muted: #adadb8;
+    --accent: #a970ff; --accent-text: #0e0e10; --code: #26262c;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg: #f7f7f8; --panel: #fff; --line: #dedee3; --text: #0e0e10; --muted: #53535f; --accent: #772ce8; --accent-text: #fff; --code: #efeff1; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  header { display: flex; align-items: center; gap: 12px; }
+  header img { width: 40px; height: 40px; }
+  h1 { font-size: 28px; margin: 0; }
+  h2 { font-size: 21px; margin: 36px 0 10px; }
+  h3 { font-size: 17px; margin: 24px 0 6px; }
+  p, li { color: var(--text); }
+  .lead { color: var(--muted); font-size: 18px; margin: 12px 0 24px; }
+  .tabs { display: flex; gap: 8px; margin: 8px 0 0; flex-wrap: wrap; }
+  .tabs button { font: inherit; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; }
+  .tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 4px 20px 16px; margin-top: 16px; }
+  ol { padding-left: 22px; }
+  li { margin: 8px 0; }
+  .btn { display: inline-block; margin: 4px 0; padding: 8px 16px; border-radius: 8px; background: var(--accent); color: var(--accent-text); text-decoration: none; font-weight: 600; }
+  a { color: var(--accent); }
+  code, kbd { background: var(--code); border-radius: 4px; padding: 1px 6px; font: 14px ui-monospace, SFMono-Regular, Consolas, monospace; }
+  pre { background: var(--code); border-radius: 8px; padding: 12px; overflow-x: auto; white-space: pre-wrap; word-break: break-word; font: 14px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; margin: 8px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 15px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  .copy { font: inherit; font-size: 14px; padding: 4px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; }
+  .note { color: var(--muted); font-size: 15px; }
+  [hidden] { display: none !important; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <header><img src="icon.png" alt=""><h1>TScrambler</h1></header>
+  <p class="lead">Some Twitch streams are scrambled into tiles. Install TScrambler once and they play normally.</p>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-watch" aria-selected="true" aria-controls="watch">I'm watching</button>
+    <button role="tab" id="tab-stream" aria-selected="false" aria-controls="stream">I'm streaming</button>
+  </div>
+
+  <!-- ===================================================================== Watch -->
+  <section id="watch" role="tabpanel">
+    <h2>1. Install (once)</h2>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-chrome" aria-selected="true" aria-controls="chrome">Chrome, Edge, Brave, Opera</button>
+      <button role="tab" id="tab-firefox" aria-selected="false" aria-controls="firefox">Firefox</button>
+    </div>
+    <div class="card" id="chrome" role="tabpanel">
+      <ol>
+        <li><a class="btn" href="https://github.com/briandaed/TScrambler/releases/latest/download/tscrambler-chrome.zip">Download TScrambler for Chrome</a><br>Unzip it.</li>
+        <li>Open <code>chrome://extensions</code> (copy it into the address bar) and turn on <b>Developer mode</b>, top right.</li>
+        <li>Click <b>Load unpacked</b> and pick the unzipped folder.</li>
+      </ol>
+    </div>
+    <div class="card" id="firefox" role="tabpanel" hidden>
+      <ol>
+        <li><a class="btn" href="https://addons.mozilla.org/firefox/addon/violentmonkey/">Get Violentmonkey</a><br>Click <b>Add to Firefox</b>.</li>
+        <li><a class="btn" href="https://github.com/briandaed/TScrambler/releases/latest/download/tscrambler.user.js">Install TScrambler</a><br>Click <b>Install</b> on the page that opens.</li>
+      </ol>
+      <p class="note">Also works in any browser with Violentmonkey or Tampermonkey.</p>
+    </div>
+
+    <h2>2. Watch</h2>
+    <p>Open the stream. The picture fixes itself within a few seconds. Live, VODs, clips and embeds all work.</p>
+    <p><b>Streamer gave you a link?</b> Open it once and accept the prompt. TScrambler remembers it for that channel.</p>
+
+    <h3>Keys</h3>
+    <table>
+      <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td>Turn descrambling on or off for this channel</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd></td><td>Show the scrambled picture</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd></td><td>Show or hide the status panel</td></tr>
+    </table>
+
+    <h3>Not working?</h3>
+    <ul>
+      <li><b>Still tiles:</b> the channel uses its own code. Ask the streamer for the current link.</li>
+      <li><b>Choppy:</b> set the stream quality to <b>Source</b> and turn on hardware acceleration in your browser settings.</li>
+      <li><b>Ads</b> play normally. Descrambling comes back after them.</li>
+      <li>Still stuck: press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd> and send a screenshot to the streamer.</li>
+    </ul>
+  </section>
+
+  <!-- ===================================================================== Stream -->
+  <section id="stream" role="tabpanel" hidden>
+    <h2>1. Install</h2>
+    <p><a class="btn" href="https://github.com/briandaed/TScrambler/releases/latest/download/tscrambler-obs-windows-installer.exe">Download for OBS (Windows)</a></p>
+    <p>Run it, then restart OBS. Needs OBS 31 or newer, 64-bit Windows.</p>
+
+    <h2>2. Scenes</h2>
+    <ol>
+      <li><b>Show</b>: your normal scene with everything in it (video, webcam, alerts, chat box).</li>
+      <li><b>Broadcast</b>: a new scene with only one source, the <b>Show</b> scene, filling the canvas.</li>
+      <li>In <b>Broadcast</b>, right-click <b>Show</b> → <b>Filters</b> → add <b>TScrambler: Scramble</b>. Keep it the last filter.</li>
+      <li>Stream the <b>Broadcast</b> scene.</li>
+    </ol>
+    <p class="note">Never put anything on top of Show in Broadcast: it reaches viewers unscrambled, and TScrambler turns it into garbage for them.</p>
+
+    <h2>3. Code</h2>
+    <p><b>Channel default</b> (recommended): type your channel name in the filter. Viewers with TScrambler need nothing else.</p>
+    <p><b>Own code</b>, so only people you give it to can watch:</p>
+    <ol>
+      <li>Set <b>Code</b> to <b>Own code</b> and type your channel name.</li>
+      <li>Pick a pattern and options (below), then click <b>Generate new code</b>.</li>
+      <li>Click <b>Copy share link</b> and post it where your viewers are (Discord, whispers). They open it once.</li>
+    </ol>
+    <p class="note">A new code means a new scramble: everyone needs the new link.</p>
+
+    <h3>Patterns</h3>
+    <table>
+      <tr><th>Pattern</th><th>Looks like</th><th>Quality cost</th></tr>
+      <tr><td>Squares</td><td>16×9 grid of squares (the channel default)</td><td>Medium</td></tr>
+      <tr><td>Mixed grid</td><td>Rows and columns of different sizes</td><td>Medium</td></tr>
+      <tr><td>Bricks</td><td>Rows of different heights, each cut differently</td><td>Medium</td></tr>
+      <tr><td>Vertical stripes</td><td>16 full-height stripes</td><td>Low</td></tr>
+      <tr><td>Horizontal stripes</td><td>9 full-width stripes</td><td>Low</td></tr>
+      <tr><td>Big blocks</td><td>8×5 large blocks</td><td>Low</td></tr>
+      <tr><td>Giant blocks</td><td>4×3 huge blocks</td><td>Lowest</td></tr>
+    </table>
+    <p class="note">Fewer, bigger pieces look better on stream but are easier to undo by eye.</p>
+
+    <h3>Options</h3>
+    <table>
+      <tr><td>Mirror tiles</td><td>Flips some tiles</td></tr>
+      <tr><td>Rotate tiles</td><td>Turns some tiles</td></tr>
+      <tr><td>Swap colors</td><td>Changes the colors of some tiles; costs a little quality</td></tr>
+      <tr><td>Change the scramble every N min</td><td>New layout every N minutes, same code for viewers. 0 = never.</td></tr>
+    </table>
+
+    <h2>4. Check</h2>
+    <p>Make a scene <b>Verify</b> with the <b>Broadcast</b> scene in it and add the filter <b>TScrambler: Descramble (verify)</b> with your code (or channel name). It should look like Show. Switch away from it while live; it uses GPU time.</p>
+
+    <h2>5. OBS settings</h2>
+    <table>
+      <tr><th>Where</th><th>Setting</th></tr>
+      <tr><td>Video</td><td>Base and Output <b>1920×1080</b> (whatever your monitor), <b>60</b> FPS</td></tr>
+      <tr><td>Output → Streaming</td><td>NVENC H.264 (or x264), <b>CBR 6000 kbps</b>, keyframe interval <b>2 s</b></td></tr>
+      <tr><td>NVENC</td><td>Preset P5 to P7, Tuning High Quality, Multipass Two Passes</td></tr>
+      <tr><td>Advanced</td><td>Color format NV12, Rec. 709, <b>Limited</b> range</td></tr>
+      <tr><td>Twitch dashboard</td><td>Latency mode <b>Normal</b></td></tr>
+    </table>
+
+    <h2>6. Tell viewers</h2>
+    <p>Paste this in your chat once (Nightbot, as a mod or the streamer):</p>
+    <pre id="nightbot">!commands add !descramble Stream looks like tiles? Install TScrambler (free, 1 minute), then reload: https://briandaed.github.io/TScrambler/</pre>
+    <button class="copy" data-copy="nightbot">Copy</button>
+    <p class="note">Viewers then type <code>!descramble</code> to get the link. Put the link in a channel panel too. With an own code, add your share link to the end of the command.</p>
+  </section>
+
+  <footer>
+    TScrambler is obfuscation, not DRM: anyone with the code can undo it.
+    Nothing leaves your browser. <a href="privacy.html">Privacy</a>
+  </footer>
+</main>
+<script>
+  // Tabs: each tablist switches between the panels its buttons control.
+  function select(btn) {
+    for (const b of btn.parentElement.querySelectorAll('[role=tab]')) {
+      const on = b === btn;
+      b.setAttribute('aria-selected', String(on));
+      document.getElementById(b.getAttribute('aria-controls')).hidden = !on;
+    }
+  }
+  for (const b of document.querySelectorAll('[role=tab]')) b.addEventListener('click', () => select(b));
+  if (/firefox/i.test(navigator.userAgent)) select(document.getElementById('tab-firefox'));
+  if (location.hash === '#stream') select(document.getElementById('tab-stream'));
+  for (const b of document.querySelectorAll('[data-copy]')) {
+    b.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(document.getElementById(b.dataset.copy).textContent);
+      b.textContent = 'Copied';
+      setTimeout(() => (b.textContent = 'Copy'), 1500);
+    });
+  }
+</script>
+</body>
+</html>

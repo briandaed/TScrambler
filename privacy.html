@@ -4,12 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TScrambler privacy</title>
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="icon.png">
 <style>
-  :root { --bg: #0e0e10; --text: #efeff1; --accent: #a970ff; }
-  @media (prefers-color-scheme: light) { :root { --bg: #f7f7f8; --text: #0e0e10; --accent: #772ce8; } }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
-  a { color: var(--accent); }
+  :root { --bg: #0d0f12; --line: #262b33; --text: #e6e8ec; --muted: #8e96a3; --accent: #4fe0b2; }
+  html { background: var(--bg); }
+  body { margin: 0; color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+  main { max-width: 680px; margin: 0 auto; padding: 56px 16px 40px; }
+  h1 { font-size: 30px; letter-spacing: -.02em; margin: 0 0 16px; }
+  li { margin: 6px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -20,7 +25,7 @@
     <li>Descrambling happens on your computer, in your browser.</li>
     <li>Share codes you enter are saved in your browser's own storage, per channel, and never leave it.</li>
     <li>The extension reads Twitch pages and Twitch's video servers only to descramble the video you are watching.</li>
-    <li>No analytics, no accounts, no servers of our own.</li>
+    <li>No analytics, no accounts, no servers.</li>
   </ul>
   <p><a href="./">Back to TScrambler</a></p>
 </main>

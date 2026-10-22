@@ -41,7 +41,7 @@
   .card + .card { margin-top: 12px; }
   .card .for { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
   h2.after-seg { margin-top: 20px; }
-  .sub { margin-bottom: 14px; }
+  .sub { margin-bottom: 16px; }
   .sub .seg button { font-size: 14px; padding: 5px 14px; }
   p { margin: 0 0 10px; }
   p:last-child { margin-bottom: 0; }
@@ -114,14 +114,14 @@
         </div>
       </div>
       <h2 class="after-seg"><span class="n">1</span>Install</h2>
-      <div id="ext" role="tabpanel">
+      <div class="card" id="ext" role="tabpanel">
         <div class="center sub">
           <div class="seg" role="tablist">
             <button role="tab" id="tab-chrome" aria-selected="true" aria-controls="chrome">Chrome, Edge</button>
             <button role="tab" id="tab-firefox" aria-selected="false" aria-controls="firefox">Firefox</button>
           </div>
         </div>
-        <div class="card" id="chrome" role="tabpanel">
+        <div id="chrome" role="tabpanel">
           <p class="for">Also Brave and Opera</p>
           <ol class="steps">
             <li><div class="row"><a class="btn" href="https://github.com/briandaed/TScrambler/releases/latest/download/tscrambler-chrome.zip">Download for Chrome</a><span>then unzip it.</span></div></li>
@@ -129,7 +129,7 @@
             <li>Click <b>Load unpacked</b> and pick the unzipped folder.</li>
           </ol>
         </div>
-        <div class="card" id="firefox" role="tabpanel" hidden>
+        <div id="firefox" role="tabpanel" hidden>
           <ol class="steps">
             <li><div class="row"><a class="btn" href="https://github.com/briandaed/TScrambler/releases/latest/download/tscrambler-firefox.zip">Download for Firefox</a><span>no need to unzip it.</span></div></li>
             <li>Go to <code>about:debugging#/runtime/this-firefox</code>.</li>

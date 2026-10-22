@@ -40,7 +40,7 @@
   .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
   .card + .card { margin-top: 12px; }
   .card .for { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
-  .tabs-card { margin-top: 14px; }
+  h2.after-seg { margin-top: 20px; }
   p { margin: 0 0 10px; }
   p:last-child { margin-bottom: 0; }
 
@@ -105,28 +105,39 @@
   <!-- Watch -->
   <div id="watch" role="tabpanel">
     <section class="step">
-      <h2><span class="n">1</span>Install</h2>
       <div class="center">
         <div class="seg" role="tablist">
           <button role="tab" id="tab-ext" aria-selected="true" aria-controls="ext">Extension</button>
           <button role="tab" id="tab-us" aria-selected="false" aria-controls="us">Userscript</button>
         </div>
       </div>
-      <div class="card tabs-card" id="ext" role="tabpanel">
-        <p class="for">Chrome, Edge, Brave and Opera</p>
-        <ol class="steps">
-          <li><div class="row"><a class="btn" href="https://github.com/briandaed/TScrambler/releases/latest/download/tscrambler-chrome.zip">Download extension</a><span>then unzip it.</span></div></li>
-          <li>Go to <code>chrome://extensions</code> and turn on <b>Developer mode</b>.</li>
-          <li>Click <b>Load unpacked</b> and pick the unzipped folder.</li>
-        </ol>
+      <h2 class="after-seg"><span class="n">1</span>Install</h2>
+      <div id="ext" role="tabpanel">
+        <div class="card">
+          <p class="for">Chrome, Edge, Brave and Opera</p>
+          <ol class="steps">
+            <li><div class="row"><a class="btn" href="https://github.com/briandaed/TScrambler/releases/latest/download/tscrambler-chrome.zip">Download for Chrome</a><span>then unzip it.</span></div></li>
+            <li>Go to <code>chrome://extensions</code> (Edge: <code>edge://extensions</code>) and turn on <b>Developer mode</b>.</li>
+            <li>Click <b>Load unpacked</b> and pick the unzipped folder.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <p class="for">Firefox</p>
+          <ol class="steps">
+            <li><div class="row"><a class="btn" href="https://github.com/briandaed/TScrambler/releases/latest/download/tscrambler-firefox.zip">Download for Firefox</a><span>no need to unzip it.</span></div></li>
+            <li>Go to <code>about:debugging#/runtime/this-firefox</code>.</li>
+            <li>Click <b>Load Temporary Add-on</b> and pick the zip.</li>
+          </ol>
+          <p class="note">Firefox removes it when you close the browser. To keep it, use the userscript.</p>
+        </div>
       </div>
-      <div class="card tabs-card" id="us" role="tabpanel" hidden>
-        <p class="for">Any browser, including Firefox</p>
+      <div class="card" id="us" role="tabpanel" hidden>
+        <p class="for">Any browser</p>
         <ol class="steps">
-          <li>Add <a href="https://addons.mozilla.org/firefox/addon/violentmonkey/">Violentmonkey</a> (Firefox) or <a href="https://www.tampermonkey.net/">Tampermonkey</a> (Chrome, Edge).</li>
+          <li>Add Violentmonkey for <a href="https://addons.mozilla.org/firefox/addon/violentmonkey/">Firefox</a>, <a href="https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag">Chrome</a> or <a href="https://microsoftedge.microsoft.com/addons/detail/violentmonkey/eeagobfjdenkkddmbclomhiblgggliao">Edge</a>.</li>
           <li><div class="row"><a class="btn" href="https://github.com/briandaed/TScrambler/releases/latest/download/tscrambler.user.js">Install userscript</a><span>then click <b>Install</b>.</span></div></li>
         </ol>
-        <p class="note">Tampermonkey on Chrome or Edge: open its <b>Details</b> and turn on <b>Allow User Scripts</b>.</p>
+        <p class="note">Chrome or Edge: open Violentmonkey's <b>Details</b> and turn on <b>Allow user scripts</b>.</p>
       </div>
     </section>
 
@@ -152,7 +163,7 @@
       <table>
         <tr><td>Still tiles</td><td>Ask the streamer for their link.</td></tr>
         <tr><td>Choppy</td><td>Pick <b>Source</b> quality, turn on hardware acceleration.</td></tr>
-        <tr><td>Anything else</td><td>Copy the status panel and send it to the streamer.</td></tr>
+        <tr><td>Anything else</td><td>Press <kbd>Alt</kbd> <kbd>Shift</kbd> <kbd>H</kbd> to see what's wrong.</td></tr>
       </table>
     </div>
   </div>
@@ -257,7 +268,6 @@
     }
   }
   for (const b of document.querySelectorAll('[role=tab]')) b.addEventListener('click', () => select(b));
-  if (/firefox/i.test(navigator.userAgent)) select(document.getElementById('tab-us'));
   if (location.hash === '#stream') select(document.getElementById('tab-stream'));
 </script>
 </body>
